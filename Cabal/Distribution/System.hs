@@ -97,6 +97,7 @@ data OS = Linux | Windows | OSX        -- tier 1 desktop OSs
         | Hurd                         -- GNU's microkernel
         | IOS  | Android               -- mobile OSs
         | Ghcjs
+        | Haiku
         | OtherOS String
   deriving (Eq, Generic, Ord, Show, Read, Typeable, Data)
 
@@ -111,7 +112,8 @@ knownOSs = [Linux, Windows, OSX
            ,HaLVM
            ,Hurd
            ,IOS, Android
-           ,Ghcjs]
+           ,Ghcjs
+           ,Haiku]
 
 osAliases :: ClassificationStrictness -> OS -> [String]
 osAliases Permissive Windows = ["mingw32", "win32", "cygwin32"]
@@ -124,6 +126,7 @@ osAliases Permissive Solaris = ["solaris2"]
 osAliases Compat     Solaris = ["solaris2"]
 osAliases Permissive Android = ["linux-android", "linux-androideabi", "linux-androideabihf"]
 osAliases Compat     Android = ["linux-android"]
+osAliases _          Haiku   = ["haiku"]
 osAliases _          _       = []
 
 instance Pretty OS where
